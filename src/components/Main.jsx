@@ -1,54 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PrimaryNote from './note/PrimaryNote';
+import ArchiveNote from './note/ArchiveNote';
 
-function Main({ notes }) {
-  const primary = notes.filter(({ archived }) => !archived);
-  const archive = notes.filter(({ archived }) => archived);
-
+function Main({ notes, onDelete, onArchive }) {
   return (
     <main className="main">
-      <article className="primary">
-        <header className="primary__header">
-          <h2 className="primary__title">Primary</h2>
-        </header>
-        <div className="primary__container">
-          {primary.map(({ title, body }) => (
-            <article className="note">
-              <h3 className="note__title">{title}</h3>
-              <p className="note__body">{body}</p>
-            </article>
-          ))}
-          {primary.length === 0
-            && <p className="primary__empty">Nothing in Primary</p>}
-        </div>
-      </article>
-      <article className="archive">
-        <header className="archive__header">
-          <h2 className="archive__title">Archive</h2>
-        </header>
-        <div className="archive__container">
-          {archive.map(({ title, body }) => (
-            <article className="note">
-              <h3 className="note__title">{title}</h3>
-              <p className="note__body">{body}</p>
-            </article>
-          ))}
-          {archive.length === 0
-            && <p className="archive__empty">Nothing in Archive</p>}
-        </div>
-      </article>
+      <PrimaryNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
+      <ArchiveNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
     </main>
   );
 }
 
 Main.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.string,
-    createdAt: PropTypes.string,
-    archived: PropTypes.bool,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    archived: PropTypes.bool.isRequired,
   })).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onArchive: PropTypes.func.isRequired,
 };
 
 export default Main;

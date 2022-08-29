@@ -2,10 +2,50 @@
     @apply p-4 bg-neutral-800 rounded-3xl mb-4 break-inside-avoid;
 }
 
-.note__title {
-    @apply font-semibold text-xl mb-2;
+.note__header, .note__body {
+    @apply mb-2;
 }
 
-.note__body {
-    @apply text-neutral-200;
+.note__title {
+    @apply font-semibold text-xl;
+}
+
+.note__content {
+    @apply text-neutral-300;
+}
+
+.note__footer {
+    @apply flex justify-between items-center;
+}
+
+.note__date {
+    @apply text-neutral-500;
+}
+
+.note__archive, .note__delete {
+    @apply p-2 rounded-lg transition ml-2;
+}
+
+.note__archive svg, .note__delete svg {
+    @apply w-5 h-5 transition;
+}
+
+.note__archive svg {
+    @apply fill-neutral-100;
+}
+
+.note__archive:hover {
+    @apply bg-yellow-800;
+}
+
+.note__archive:hover svg {
+    @apply fill-neutral-100;
+}
+
+.note__delete svg {
+    @apply fill-transparent stroke-neutral-100;
+}
+
+.note__delete:hover {
+    @apply bg-red-700;
 }
