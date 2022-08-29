@@ -1,0 +1,7 @@
+.header {
+    @apply bg-neutral-800 p-4;
+}
+
+.header__title {
+    @apply text-3xl font-semibold text-center;
+}

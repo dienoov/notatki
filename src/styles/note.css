@@ -1,0 +1,11 @@
+.note {
+    @apply p-4 bg-neutral-800 rounded-3xl mb-4 break-inside-avoid;
+}
+
+.note__title {
+    @apply font-semibold text-xl mb-2;
+}
+
+.note__body {
+    @apply text-neutral-200;
+}

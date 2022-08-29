@@ -1,0 +1,19 @@
+.main {
+    @apply max-w-7xl mx-auto pb-20;
+}
+
+.primary__header, .archive__header {
+    @apply pt-8 pb-4 px-8;
+}
+
+.primary__title, .archive__title {
+    @apply font-semibold text-3xl;
+}
+
+.primary__container, .archive__container {
+    @apply columns-1 md:columns-2 lg:columns-3 gap-4 px-4;
+}
+
+.primary__empty, .archive__empty {
+    @apply pl-4 text-neutral-500 text-lg;
+}
