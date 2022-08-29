@@ -2,6 +2,10 @@
     @apply bg-neutral-800 p-4;
 }
 
+.header__container {
+    @apply flex justify-between items-center max-w-7xl mx-auto;
+}
+
 .header__title {
-    @apply text-3xl font-semibold text-center;
+    @apply text-3xl font-semibold;
 }

@@ -7,37 +7,61 @@ class NotatkiApp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { notes: dummy };
+    this.state = {
+      notes: dummy, filteredNotes: [], searchValue: '',
+    };
 
     this.onDelete = this.onDelete.bind(this);
     this.onArchive = this.onArchive.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   onDelete(id) {
-    const { notes } = this.state;
-
-    this.setState({
-      notes: notes.filter((note) => note.id !== id),
-    });
+    this.setState((prev) => ({
+      ...prev,
+      notes: prev.notes.filter((note) => note.id !== id),
+    }), this.filterNotes);
   }
 
   onArchive(id) {
     const { notes } = this.state;
-    const foundIndex = notes.findIndex((note) => note.id === id);
-    notes[foundIndex].archived = !notes[foundIndex].archived;
+    const index = notes.findIndex((note) => note.id === id);
+    notes[index].archived = !notes[index].archived;
 
-    this.setState({
+    this.setState((prev) => ({
+      ...prev,
       notes,
-    });
+    }), this.filterNotes);
+  }
+
+  onSearch(ev) {
+    this.setState((prev) => ({
+      ...prev,
+      searchValue: ev.target.value,
+    }), this.filterNotes);
+  }
+
+  filterNotes() {
+    const { notes, searchValue } = this.state;
+    const regex = new RegExp(searchValue, 'i');
+
+    this.setState((prev) => ({
+      ...prev,
+      filteredNotes: notes.filter(({ title }) => regex.test(title)),
+    }));
   }
 
   render() {
-    const { notes } = this.state;
+    const { notes, filteredNotes, searchValue } = this.state;
 
     return (
       <>
-        <Header />
-        <Main notes={notes} onDelete={this.onDelete} onArchive={this.onArchive} />
+        <Header onSearch={this.onSearch} searchValue={searchValue} />
+        <Main
+          notes={searchValue === '' ? notes : filteredNotes}
+          onDelete={this.onDelete}
+          onArchive={this.onArchive}
+        />
       </>
     );
   }
