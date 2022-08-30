@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d25aa338.css",
+    "main.js": "/static/js/main.d1e453f6.js",
+    "static/media/SF-Pro-Display-Semibold.woff": "/static/media/SF-Pro-Display-Semibold.61e1d5cc80e783bdfc17.woff",
+    "static/media/SF-Pro-Display-Regular.woff": "/static/media/SF-Pro-Display-Regular.f11fb5b8d8a4a702e0dd.woff",
+    "index.html": "/index.html",
+    "main.d25aa338.css.map": "/static/css/main.d25aa338.css.map",
+    "main.d1e453f6.js.map": "/static/js/main.d1e453f6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d25aa338.css",
+    "static/js/main.d1e453f6.js"
+  ]
+}
