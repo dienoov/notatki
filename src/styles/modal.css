@@ -39,6 +39,10 @@
     @apply absolute top-1 right-0 w-auto text-sm text-neutral-500;
 }
 
+.modal__errors {
+    @apply text-red-700;
+}
+
 .modal__actions {
     @apply flex justify-end;
 }

@@ -2,15 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class NewNote extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+  static get initialStates() {
+    return {
       title: '',
       body: '',
       titleLimit: '50/50',
       show: false,
+      errors: [],
     };
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = NewNote.initialStates;
 
     this.onTitleChange = this.onTitleChange.bind(this);
     this.onBodyChange = this.onBodyChange.bind(this);
@@ -39,18 +44,13 @@ class NewNote extends React.Component {
 
   onCancel() {
     this.setState(({
-      title: '',
-      body: '',
-      titleLimit: '50/50',
-      show: false,
+      ...NewNote.initialStates,
     }));
   }
 
   onShow() {
     this.setState(({
-      title: '',
-      body: '',
-      titleLimit: '50/50',
+      ...NewNote.initialStates,
       show: true,
     }));
   }
@@ -59,21 +59,31 @@ class NewNote extends React.Component {
     ev.preventDefault();
 
     const { title, body } = this.state;
+    const errors = [];
+
+    if (title.length === 0) errors.push('Title must not be empty');
+    if (title.length > 50) errors.push('Title must be less than 50 characters');
+    if (body.length === 0) errors.push('Body must not be empty');
+
+    if (errors.length !== 0) {
+      this.setState((prev) => ({
+        ...prev,
+        errors,
+      }));
+      return;
+    }
+
     const { onSave } = this.props;
+    onSave({ title, body });
 
     this.setState({
-      title: '',
-      body: '',
-      titleLimit: '50/50',
-      show: false,
+      ...NewNote.initialStates,
     });
-
-    onSave({ title, body });
   }
 
   render() {
     const {
-      title, body, titleLimit, show,
+      title, body, titleLimit, show, errors,
     } = this.state;
 
     return (
@@ -95,6 +105,11 @@ class NewNote extends React.Component {
             <label htmlFor="input-body" className="modal__input">
               <textarea id="input-body" rows="10" placeholder="Write something here..." onChange={this.onBodyChange} value={body} />
             </label>
+            <ul className="modal__errors">
+              {errors.map((error) => (
+                <li>{error}</li>
+              ))}
+            </ul>
             <div className="modal__actions">
               <button type="button" className="modal__cancel" onClick={this.onCancel}>Cancel</button>
               <button type="submit" className="modal__submit">Save</button>
