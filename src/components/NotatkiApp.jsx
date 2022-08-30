@@ -14,6 +14,7 @@ class NotatkiApp extends React.Component {
     this.onDelete = this.onDelete.bind(this);
     this.onArchive = this.onArchive.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   onDelete(id) {
@@ -41,6 +42,22 @@ class NotatkiApp extends React.Component {
     }), this.filterNotes);
   }
 
+  onSave({ title, body }) {
+    this.setState((prev) => ({
+      ...prev,
+      notes: [
+        ...prev.notes,
+        {
+          id: +new Date(),
+          title,
+          body,
+          createdAt: new Date().toISOString(),
+          archived: false,
+        },
+      ],
+    }));
+  }
+
   filterNotes() {
     const { notes, searchValue } = this.state;
     const regex = new RegExp(searchValue, 'i');
@@ -61,6 +78,7 @@ class NotatkiApp extends React.Component {
           notes={searchValue === '' ? notes : filteredNotes}
           onDelete={this.onDelete}
           onArchive={this.onArchive}
+          onSave={this.onSave}
         />
       </>
     );

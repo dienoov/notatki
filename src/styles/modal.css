@@ -1,0 +1,80 @@
+.modal {
+    @apply fixed top-0 left-0 bg-neutral-900 bg-opacity-50 backdrop-blur-sm w-full h-screen flex justify-center items-center
+    translate-y-[-100%] transition duration-300 ease-in-out;
+}
+
+.modal.show {
+    @apply translate-y-0;
+}
+
+.modal__form {
+    @apply p-4 bg-neutral-800 max-w-xl w-full rounded-3xl mx-4;
+}
+
+.modal__input {
+    @apply relative;
+}
+
+.modal__input > * {
+    @apply block bg-transparent w-full p-2;
+}
+
+.modal__input > *::placeholder {
+    @apply text-neutral-500 font-normal;
+}
+
+.modal__input > *:focus, .modal__input > *:focus-visible {
+    @apply outline-none;
+}
+
+.modal__input #input-title {
+    @apply text-xl font-semibold pr-16;
+}
+
+.modal__input #input-body {
+    @apply resize-none text-neutral-300;
+}
+
+.modal__limit {
+    @apply absolute top-1 right-0 w-auto text-sm text-neutral-500;
+}
+
+.modal__actions {
+    @apply flex justify-end;
+}
+
+.modal__actions > * {
+    @apply py-2 px-6 mx-2 rounded-lg bg-neutral-100 text-neutral-800 font-semibold transition;
+}
+
+.modal__cancel {
+    @apply bg-transparent px-2 text-neutral-500;
+}
+
+.modal__submit:hover {
+    @apply bg-neutral-200;
+}
+
+.modal__cancel:hover {
+    @apply text-neutral-300;
+}
+
+.fab {
+    @apply fixed left-[50%] translate-x-[-50%] bottom-0 w-full max-w-7xl flex justify-end p-4;
+}
+
+.fab__modal {
+    @apply rounded-lg bg-neutral-100 p-2 flex items-center transition;
+}
+
+.fab__modal svg {
+    @apply w-8 h-8 stroke-neutral-800;
+}
+
+.fab__modal span {
+    @apply text-neutral-800 px-2 font-semibold hidden md:block;
+}
+
+.fab__modal:hover {
+    @apply bg-neutral-200;
+}
