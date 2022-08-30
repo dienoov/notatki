@@ -7,11 +7,11 @@
 }
 
 .note__title {
-    @apply font-semibold text-xl;
+    @apply font-semibold text-xl overflow-x-hidden overflow-ellipsis;
 }
 
 .note__content {
-    @apply text-neutral-300;
+    @apply text-neutral-300 overflow-x-hidden overflow-ellipsis;
 }
 
 .note__footer {
