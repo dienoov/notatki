@@ -1,23 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Routes } from 'react-router-dom';
-import Home from '../pages/Home';
-import NotFound from '../pages/NotFound';
+import PrimaryNote from '../components/note/PrimaryNote';
+import ArchiveNote from '../components/note/ArchiveNote';
+import NewNote from '../components/note/NewNote';
 
-function Main({
+function Home({
   notes, onDelete, onArchive, onSave,
 }) {
   return (
-    <main className="main">
-      <Routes>
-        <Route path="/" element={<Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </main>
+    <>
+      <PrimaryNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
+      <ArchiveNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
+      <NewNote onSave={onSave} />
+    </>
   );
 }
 
-Main.propTypes = {
+Home.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -30,4 +29,4 @@ Main.propTypes = {
   onSave: PropTypes.func.isRequired,
 };
 
-export default Main;
+export default Home;

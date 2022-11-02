@@ -1,0 +1,11 @@
+.not-found {
+    @apply flex flex-col items-center justify-center min-h-[60vh] p-8;
+}
+
+.not-found__title {
+    @apply text-8xl font-semibold text-neutral-800;
+}
+
+.not-found__description {
+    @apply text-neutral-500;
+}
