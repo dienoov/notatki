@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import Note from '../components/note/Note';
 
 function Detail({ notes, onDelete, onArchive }) {
   const { id } = useParams();
-  const {
-    archived, createdAt, title, body,
-  } = notes.find((note) => note.id === +id);
+  const note = notes.find(({ id: noteId }) => noteId === +id);
 
   const navigate = useNavigate();
+
+  if (!note) return <Navigate to="/404" />;
 
   const onDeleteRedirect = (deleteId) => {
     onDelete(deleteId);
@@ -23,11 +23,11 @@ function Detail({ notes, onDelete, onArchive }) {
 
   return (
     <Note
-      archived={archived}
-      createdAt={createdAt}
-      id={+id}
-      title={title}
-      body={body}
+      archived={note.archived}
+      createdAt={note.createdAt}
+      id={note.id}
+      title={note.title}
+      body={note.body}
       onDelete={onDeleteRedirect}
       onArchive={onArchiveRedirect}
       detail
