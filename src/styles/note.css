@@ -2,16 +2,32 @@
     @apply p-4 bg-neutral-800 rounded-3xl mb-4 break-inside-avoid;
 }
 
+.note.detail {
+    @apply px-4 md:py-4 py-0 bg-neutral-900 mx-auto my-4 max-w-4xl;
+}
+
 .note__header, .note__body {
     @apply mb-2;
+}
+
+.detail .note__header, .detail .note__body {
+    @apply mb-8;
 }
 
 .note__title {
     @apply font-semibold text-xl overflow-x-hidden overflow-ellipsis;
 }
 
+.detail .note__title {
+    @apply md:text-6xl text-5xl overflow-visible break-all;
+}
+
 .note__content {
     @apply text-neutral-300 overflow-x-hidden overflow-ellipsis;
+}
+
+.detail .note__content {
+    @apply text-lg;
 }
 
 .note__footer {

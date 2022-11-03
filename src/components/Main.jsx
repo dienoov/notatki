@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
+import Detail from '../pages/Detail';
 
 function Main({
   notes, onDelete, onArchive, onSave,
@@ -11,6 +12,7 @@ function Main({
     <main className="main">
       <Routes>
         <Route path="/" element={<Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />} />
+        <Route path="/note/:id" element={<Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
