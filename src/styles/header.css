@@ -9,3 +9,15 @@
 .header__title {
     @apply text-3xl font-semibold;
 }
+
+.header__menu {
+    @apply flex;
+}
+
+.header__link {
+    @apply mx-4;
+}
+
+.header__link:hover {
+    @apply underline;
+}

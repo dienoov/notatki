@@ -1,20 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PrimaryNote from '../components/note/PrimaryNote';
-import NewNote from '../components/note/NewNote';
+import ArchiveNote from '../components/note/ArchiveNote';
 
-function Home({
-  notes, onDelete, onArchive, onSave,
+function Archive({
+  notes, onDelete, onArchive,
 }) {
   return (
-    <>
-      <PrimaryNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
-      <NewNote onSave={onSave} />
-    </>
+    <ArchiveNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
   );
 }
 
-Home.propTypes = {
+Archive.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -24,7 +20,6 @@ Home.propTypes = {
   })).isRequired,
   onDelete: PropTypes.func.isRequired,
   onArchive: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
 };
 
-export default Home;
+export default Archive;

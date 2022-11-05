@@ -10,6 +10,12 @@ function Header({ onSearch, searchValue }) {
         <h1 className="header__title">
           <Link to="/">notatki</Link>
         </h1>
+        <nav className="header__nav">
+          <ul className="header__menu">
+            <li className="header__link"><Link to="/">Primary</Link></li>
+            <li className="header__link"><Link to="/archive">Archive</Link></li>
+          </ul>
+        </nav>
         <Search onSearch={onSearch} searchValue={searchValue} />
       </div>
     </header>
