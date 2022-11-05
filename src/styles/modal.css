@@ -32,7 +32,12 @@
 }
 
 .modal__input #input-body {
-    @apply resize-none text-neutral-300;
+    @apply h-64 text-neutral-300;
+}
+
+.modal__input #input-body[data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+    @apply text-neutral-500 cursor-text;
 }
 
 .modal__limit {

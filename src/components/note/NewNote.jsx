@@ -38,7 +38,7 @@ class NewNote extends React.Component {
   onBodyChange(ev) {
     this.setState((prev) => ({
       ...prev,
-      body: ev.target.value,
+      body: ev.target.innerHTML,
     }));
   }
 
@@ -83,7 +83,7 @@ class NewNote extends React.Component {
 
   render() {
     const {
-      title, body, titleLimit, show, errors,
+      title, titleLimit, show, errors,
     } = this.state;
 
     return (
@@ -102,9 +102,9 @@ class NewNote extends React.Component {
               <input type="text" id="input-title" placeholder="Title" value={title} onChange={this.onTitleChange} />
               <span className="modal__limit">{titleLimit}</span>
             </label>
-            <label htmlFor="input-body" className="modal__input">
-              <textarea id="input-body" rows="10" placeholder="Write something here..." onChange={this.onBodyChange} value={body} />
-            </label>
+            <div className="modal__input">
+              <div id="input-body" data-placeholder="Write something here..." onInput={this.onBodyChange} contentEditable />
+            </div>
             <ul className="modal__errors">
               {errors.map((error) => (
                 <li>{error}</li>
