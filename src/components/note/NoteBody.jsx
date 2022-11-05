@@ -5,7 +5,7 @@ import parser from 'html-react-parser';
 function NoteBody({ body }) {
   return (
     <div className="note__body">
-      <p className="note__content">{parser(body)}</p>
+      <div className="note__content">{parser(body)}</div>
     </div>
   );
 }
