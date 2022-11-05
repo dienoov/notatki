@@ -7,7 +7,7 @@
 }
 
 .header__title {
-    @apply text-3xl font-semibold;
+    @apply text-3xl font-semibold sm:block hidden;
 }
 
 .header__menu {
@@ -15,7 +15,7 @@
 }
 
 .header__link {
-    @apply mx-4;
+    @apply sm:mx-4 mr-4;
 }
 
 .header__link:hover {
