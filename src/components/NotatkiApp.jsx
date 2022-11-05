@@ -1,88 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import dummy from '../utils/dummy';
 import Header from './Header';
 import Main from './Main';
 
-class NotatkiApp extends React.Component {
-  constructor(props) {
-    super(props);
+function NotatkiApp() {
+  const [notes, setNotes] = useState(dummy);
+  const [filteredNotes, setFilteredNotes] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-    this.state = {
-      notes: dummy, filteredNotes: [], searchValue: '',
-    };
-
-    this.onDelete = this.onDelete.bind(this);
-    this.onArchive = this.onArchive.bind(this);
-    this.onSearch = this.onSearch.bind(this);
-    this.onSave = this.onSave.bind(this);
-  }
-
-  onDelete(id) {
-    this.setState((prev) => ({
-      ...prev,
-      notes: prev.notes.filter((note) => note.id !== id),
-    }), this.filterNotes);
-  }
-
-  onArchive(id) {
-    const { notes } = this.state;
-    const index = notes.findIndex((note) => note.id === id);
-    notes[index].archived = !notes[index].archived;
-
-    this.setState((prev) => ({
-      ...prev,
-      notes,
-    }), this.filterNotes);
-  }
-
-  onSearch(ev) {
-    this.setState((prev) => ({
-      ...prev,
-      searchValue: ev.target.value,
-    }), this.filterNotes);
-  }
-
-  onSave({ title, body }) {
-    this.setState((prev) => ({
-      ...prev,
-      notes: [
-        ...prev.notes,
-        {
-          id: +new Date(),
-          title,
-          body,
-          createdAt: new Date().toISOString(),
-          archived: false,
-        },
-      ],
-    }));
-  }
-
-  filterNotes() {
-    const { notes, searchValue } = this.state;
+  const filterNotes = () => {
     const regex = new RegExp(searchValue, 'i');
 
-    this.setState((prev) => ({
-      ...prev,
-      filteredNotes: notes.filter(({ title }) => regex.test(title)),
+    setFilteredNotes(notes.filter(({ archived }) => archived === (window.location.pathname === '/archive')));
+
+    setFilteredNotes(filteredNotes.filter(({ title }) => regex.test(title)));
+  };
+
+  const onDelete = async (id) => {
+    await setNotes(notes.filter((note) => note.id !== id));
+    filterNotes();
+  };
+
+  const onArchive = async (id) => {
+    const archiveIndex = notes.findIndex((note) => note.id === id);
+
+    await setNotes(notes.map((note, index) => {
+      const archiveNote = note;
+
+      if (archiveIndex === index) archiveNote.archived = !archiveNote.archived;
+
+      return archiveNote;
     }));
-  }
 
-  render() {
-    const { notes, filteredNotes, searchValue } = this.state;
+    filterNotes();
+  };
 
-    return (
-      <>
-        <Header onSearch={this.onSearch} searchValue={searchValue} />
-        <Main
-          notes={searchValue === '' ? notes : filteredNotes}
-          onDelete={this.onDelete}
-          onArchive={this.onArchive}
-          onSave={this.onSave}
-        />
-      </>
-    );
-  }
+  const onSearch = async (ev) => {
+    await setSearchValue(ev.target.value);
+    filterNotes();
+  };
+
+  const onSave = async ({ title, body }) => {
+    await setNotes((oldNotes) => [...oldNotes, {
+      id: +new Date(),
+      title,
+      body,
+      createdAt: new Date().toISOString(),
+      archived: false,
+    }]);
+
+    filterNotes();
+  };
+
+  return (
+    <>
+      <Header onSearch={onSearch} searchValue={searchValue} />
+      <Main
+        notes={searchValue === '' ? notes : filteredNotes}
+        onDelete={onDelete}
+        onArchive={onArchive}
+        onSave={onSave}
+      />
+    </>
+  );
 }
 
 export default NotatkiApp;
