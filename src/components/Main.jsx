@@ -1,21 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Routes } from 'react-router-dom';
+import ROUTES from '../pages/routes';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import Detail from '../pages/Detail';
 import Archive from '../pages/Archive';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
 
 function Main({
   notes, onDelete, onArchive, onSave,
 }) {
-  const ROUTES = {
-    PRIMARY: '/',
-    ARCHIVE: '/archive',
-    DETAIL: '/note/:id',
-    ANY: '*',
-  };
-
   return (
     <main className="main">
       <Routes>
@@ -30,6 +26,14 @@ function Main({
         <Route
           path={ROUTES.DETAIL}
           element={<Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />}
+        />
+        <Route
+          path={ROUTES.SIGN_IN}
+          element={<SignIn />}
+        />
+        <Route
+          path={ROUTES.SIGN_UP}
+          element={<SignUp />}
         />
         <Route
           path={ROUTES.ANY}

@@ -1,0 +1,39 @@
+.auth {
+    @apply flex justify-center items-center min-h-[75vh];
+}
+
+.auth__form {
+    @apply bg-neutral-800 rounded-3xl p-4 w-full max-w-sm mx-4;
+}
+
+.auth__title {
+    @apply text-3xl font-semibold mb-8;
+}
+
+.auth__label {
+    @apply block;
+}
+
+.auth__input {
+    @apply bg-neutral-900 p-2 rounded-lg w-full mb-4;
+}
+
+.auth__input:focus, .auth__input:focus-visible {
+    @apply outline-none;
+}
+
+.auth__actions {
+    @apply flex justify-between items-center;
+}
+
+.auth__link {
+    @apply text-neutral-500 ease-out;
+}
+
+.auth__link:hover {
+    @apply text-neutral-300 underline;
+}
+
+.auth__submit {
+    @apply bg-neutral-100 text-neutral-800 px-4 py-2 rounded-lg;
+}
