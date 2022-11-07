@@ -9,13 +9,32 @@ import Archive from '../pages/Archive';
 function Main({
   notes, onDelete, onArchive, onSave,
 }) {
+  const ROUTES = {
+    PRIMARY: '/',
+    ARCHIVE: '/archive',
+    DETAIL: '/note/:id',
+    ANY: '*',
+  };
+
   return (
     <main className="main">
       <Routes>
-        <Route path="/" element={<Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />} />
-        <Route path="/archive" element={<Archive notes={notes} onDelete={onDelete} onArchive={onArchive} />} />
-        <Route path="/note/:id" element={<Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />} />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path={ROUTES.PRIMARY}
+          element={<Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />}
+        />
+        <Route
+          path={ROUTES.ARCHIVE}
+          element={<Archive notes={notes} onDelete={onDelete} onArchive={onArchive} />}
+        />
+        <Route
+          path={ROUTES.DETAIL}
+          element={<Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />}
+        />
+        <Route
+          path={ROUTES.ANY}
+          element={<NotFound />}
+        />
       </Routes>
     </main>
   );
