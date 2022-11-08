@@ -1,5 +1,5 @@
 .search {
-    @apply relative;
+    @apply relative mx-4 mb-4;
 }
 
 .search__icon {
@@ -7,7 +7,7 @@
 }
 
 .search__input {
-    @apply rounded-xl py-2 pl-10 pr-4 bg-neutral-900 max-w-[50vw] sm:max-w-max;
+    @apply rounded-xl py-2 pl-10 pr-4 bg-neutral-800 w-full;
 }
 
 .search__input::placeholder {

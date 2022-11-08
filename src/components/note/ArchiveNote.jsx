@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Note from './Note';
 import LoadingAnimation from '../LoadingAnimation';
+import Search from '../Search';
 
-function ArchiveNote({ notes, isLoading, fetchNotes }) {
+function ArchiveNote({
+  notes, isLoading, fetchNotes, onSearch,
+}) {
   return (
     <article className="archive">
       <header className="archive__header">
-        <h2 className="archive__title">Archive</h2>
+        <h2 className="archive__title">Archived Notes</h2>
       </header>
+      <Search onSearch={onSearch} />
       <div className="archive__container">
         {isLoading
           ? <LoadingAnimation />
@@ -34,7 +38,7 @@ function ArchiveNote({ notes, isLoading, fetchNotes }) {
 
 ArchiveNote.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
@@ -42,6 +46,7 @@ ArchiveNote.propTypes = {
   })).isRequired,
   isLoading: PropTypes.bool.isRequired,
   fetchNotes: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default ArchiveNote;

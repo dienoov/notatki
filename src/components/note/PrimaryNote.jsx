@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Note from './Note';
 import LoadingAnimation from '../LoadingAnimation';
+import Search from '../Search';
 
-function PrimaryNote({ notes, isLoading, fetchNotes }) {
+function PrimaryNote({
+  notes, isLoading, fetchNotes, onSearch,
+}) {
   return (
     <article className="primary">
       <header className="primary__header">
-        <h2 className="primary__title">Primary</h2>
+        <h2 className="primary__title">Primary Notes</h2>
       </header>
+      <Search onSearch={onSearch} />
       <div className="primary__container">
         {isLoading
           ? <LoadingAnimation />
@@ -34,7 +38,7 @@ function PrimaryNote({ notes, isLoading, fetchNotes }) {
 
 PrimaryNote.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
@@ -42,6 +46,7 @@ PrimaryNote.propTypes = {
   })).isRequired,
   isLoading: PropTypes.bool.isRequired,
   fetchNotes: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default PrimaryNote;

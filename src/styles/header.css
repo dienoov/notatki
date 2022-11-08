@@ -7,7 +7,7 @@
 }
 
 .header__title {
-    @apply text-3xl font-semibold sm:block hidden;
+    @apply text-3xl font-semibold;
 }
 
 .header__menu {

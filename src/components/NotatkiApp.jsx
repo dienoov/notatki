@@ -64,7 +64,7 @@ function NotatkiApp() {
 
   return (
     <>
-      <Header onSearch={onSearch} searchValue={searchValue} />
+      <Header onSearch={onSearch} />
       <Main
         notes={searchValue === '' ? notes : filteredNotes}
         onDelete={onDelete}
