@@ -20,7 +20,9 @@ function Detail() {
       if (error) navigate(ROUTES.NOT_FOUND);
       else setNote(data);
 
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
     };
 
     fetchNote();
