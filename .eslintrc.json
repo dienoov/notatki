@@ -18,6 +18,7 @@
         "react"
     ],
     "rules": {
-        "no-alert": "off"
+        "no-alert": "off",
+        "linebreak-style": "off"
     }
 }
