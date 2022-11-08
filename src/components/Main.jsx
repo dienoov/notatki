@@ -8,6 +8,7 @@ import Detail from '../pages/Detail';
 import Archive from '../pages/Archive';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import PrivateRoute from '../pages/PrivateRoute';
 
 function Main({
   notes, onDelete, onArchive, onSave,
@@ -17,15 +18,27 @@ function Main({
       <Routes>
         <Route
           path={ROUTES.PRIMARY}
-          element={<Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />}
+          element={(
+            <PrivateRoute>
+              <Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />
+            </PrivateRoute>
+          )}
         />
         <Route
           path={ROUTES.ARCHIVE}
-          element={<Archive notes={notes} onDelete={onDelete} onArchive={onArchive} />}
+          element={(
+            <PrivateRoute>
+              <Archive notes={notes} onDelete={onDelete} onArchive={onArchive} />
+            </PrivateRoute>
+          )}
         />
         <Route
           path={ROUTES.DETAIL}
-          element={<Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />}
+          element={(
+            <PrivateRoute>
+              <Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />
+            </PrivateRoute>
+          )}
         />
         <Route
           path={ROUTES.SIGN_IN}
