@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ToggleTheme from './ToggleTheme';
 import ThemeContext from '../contexts/ThemeContext';
+import ToggleLocale from './ToggleLocale';
 
 function Header() {
   const { theme } = useContext(ThemeContext);
@@ -19,6 +20,7 @@ function Header() {
           </ul>
         </nav>
         <div className="header__buttons">
+          <ToggleLocale />
           <ToggleTheme />
         </div>
       </div>

@@ -5,7 +5,7 @@ const LIGHT = 1;
 
 const LOCAL_THEME_KEY = 'notatki-theme';
 
-const getLocal = () => +(localStorage.getItem(LOCAL_THEME_KEY) ?? 0);
+const getLocal = () => +(localStorage.getItem(LOCAL_THEME_KEY) ?? DARK);
 
 const setLocal = (value) => {
   localStorage.setItem(LOCAL_THEME_KEY, value);

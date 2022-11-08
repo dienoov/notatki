@@ -21,3 +21,11 @@
 .header__link:hover {
     @apply underline;
 }
+
+.header__buttons {
+    @apply flex items-center;
+}
+
+.header__buttons > * {
+    @apply ml-4;
+}
