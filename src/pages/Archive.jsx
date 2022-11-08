@@ -18,7 +18,9 @@ function Archive() {
     if (error) navigate(ROUTES.SIGN_IN);
     else setNotes(data);
 
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   };
 
   const onSearch = (s) => {
