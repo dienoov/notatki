@@ -4,10 +4,12 @@ import useInput from '../hooks/useInput';
 import { login, putAccessToken } from '../utils/network';
 import ROUTES from './routes';
 import LocaleContext from '../contexts/LocaleContext';
+import AuthContext from '../contexts/AuthContext';
 
 function SignIn() {
   const [email, onEmailChange] = useInput();
   const [password, onPasswordChange] = useInput();
+  const { authenticate } = useContext(AuthContext);
   const { locale } = useContext(LocaleContext);
 
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ function SignIn() {
 
     putAccessToken(data.accessToken);
 
-    return navigate(ROUTES.PRIMARY);
+    return authenticate(() => navigate(ROUTES.PRIMARY));
   };
 
   return (

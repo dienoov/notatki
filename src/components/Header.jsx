@@ -5,8 +5,11 @@ import ThemeContext from '../contexts/ThemeContext';
 import ToggleLocale from './ToggleLocale';
 import ROUTES from '../pages/routes';
 import LocaleContext from '../contexts/LocaleContext';
+import AuthContext from '../contexts/AuthContext';
+import SignOut from './SignOut';
 
 function Header() {
+  const { user } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
   const { locale } = useContext(LocaleContext);
 
@@ -18,17 +21,31 @@ function Header() {
         </h1>
         <nav className="header__nav">
           <ul className="header__menu">
-            <li className="header__link">
-              <Link to={ROUTES.PRIMARY}>{locale ? 'Utama' : 'Primary'}</Link>
-            </li>
-            <li className="header__link">
-              <Link to={ROUTES.ARCHIVE}>{locale ? 'Arsip' : 'Archive'}</Link>
-            </li>
+            {user.auth ? (
+              <>
+                <li className="header__link">
+                  <Link to={ROUTES.PRIMARY}>{locale ? 'Utama' : 'Primary'}</Link>
+                </li>
+                <li className="header__link">
+                  <Link to={ROUTES.ARCHIVE}>{locale ? 'Arsip' : 'Archive'}</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="header__link">
+                  <Link to={ROUTES.SIGN_UP}>{locale ? 'Daftar' : 'Register'}</Link>
+                </li>
+                <li className="header__link">
+                  <Link to={ROUTES.SIGN_IN}>{locale ? 'Masuk' : 'Login'}</Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
         <div className="header__buttons">
           <ToggleLocale />
           <ToggleTheme />
+          <SignOut />
         </div>
       </div>
     </header>

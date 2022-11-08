@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 import ROUTES from './routes';
-import { getAccessToken } from '../utils/network';
+import AuthContext from '../contexts/AuthContext';
 
 function PrivateRoute({ children }) {
-  return (getAccessToken()) ? children : <Navigate to={ROUTES.SIGN_IN} />;
+  const { user } = useContext(AuthContext);
+
+  return user.auth ? children : <Navigate to={ROUTES.SIGN_IN} />;
 }
 
 PrivateRoute.propTypes = {
