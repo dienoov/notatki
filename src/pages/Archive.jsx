@@ -1,25 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ArchiveNote from '../components/note/ArchiveNote';
+import { getArchivedNotes } from '../utils/network';
+import ROUTES from './routes';
 
-function Archive({
-  notes, onDelete, onArchive,
-}) {
+function Archive() {
+  const [notes, setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const fetchNotes = async () => {
+    setIsLoading(true);
+
+    const { error, data } = await getArchivedNotes();
+    if (error) navigate(ROUTES.SIGN_IN);
+    else setNotes(data);
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
   return (
-    <ArchiveNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
+    <ArchiveNote notes={notes} isLoading={isLoading} fetchNotes={fetchNotes} />
   );
 }
-
-Archive.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    archived: PropTypes.bool.isRequired,
-  })).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
-};
 
 export default Archive;

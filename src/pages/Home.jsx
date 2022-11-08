@@ -1,30 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PrimaryNote from '../components/note/PrimaryNote';
 import NewNote from '../components/note/NewNote';
+import { getActiveNotes } from '../utils/network';
+import ROUTES from './routes';
 
-function Home({
-  notes, onDelete, onArchive, onSave,
-}) {
+function Home() {
+  const [notes, setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const fetchNotes = async () => {
+    setIsLoading(true);
+
+    const { error, data } = await getActiveNotes();
+    if (error) navigate(ROUTES.SIGN_IN);
+    else setNotes(data);
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
   return (
     <>
-      <PrimaryNote notes={notes} onDelete={onDelete} onArchive={onArchive} />
-      <NewNote onSave={onSave} />
+      <PrimaryNote notes={notes} isLoading={isLoading} fetchNotes={fetchNotes} />
+      <NewNote fetchNotes={fetchNotes} />
     </>
   );
 }
-
-Home.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    archived: PropTypes.bool.isRequired,
-  })).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-};
 
 export default Home;

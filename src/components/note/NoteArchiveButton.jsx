@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { archiveNote, unarchiveNote } from '../../utils/network';
 
-function NoteArchiveButton({ id, archived, onArchive }) {
+function NoteArchiveButton({ id, archived, fetchNotes }) {
+  const onArchive = async () => {
+    if (archived) await unarchiveNote(id);
+    else await archiveNote(id);
+
+    fetchNotes();
+  };
+
   const svg = archived
     ? (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -21,7 +29,7 @@ function NoteArchiveButton({ id, archived, onArchive }) {
       type="button"
       className="note__archive"
       title={archived ? 'Move to Primary' : 'Move to Archive'}
-      onClick={() => onArchive(id)}
+      onClick={onArchive}
     >
       {svg}
     </button>
@@ -29,9 +37,9 @@ function NoteArchiveButton({ id, archived, onArchive }) {
 }
 
 NoteArchiveButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  onArchive: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.func.isRequired,
 };
 
 export default NoteArchiveButton;

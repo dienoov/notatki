@@ -5,7 +5,7 @@ import NoteBody from './NoteBody';
 import NoteFooter from './NoteFooter';
 
 function Note({
-  id, title, body, createdAt, archived, onDelete, onArchive, detail,
+  id, title, body, createdAt, archived, fetchNotes, detail,
 }) {
   return (
     <article className={`note ${detail ? 'detail' : ''}`}>
@@ -15,21 +15,19 @@ function Note({
         archived={archived}
         createdAt={createdAt}
         id={id}
-        onDelete={onDelete}
-        onArchive={onArchive}
+        fetchNotes={fetchNotes}
       />
     </article>
   );
 }
 
 Note.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.func.isRequired,
   detail: PropTypes.bool,
 };
 

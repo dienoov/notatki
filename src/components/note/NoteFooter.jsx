@@ -4,7 +4,7 @@ import NoteDeleteButton from './NoteDeleteButton';
 import NoteArchiveButton from './NoteArchiveButton';
 
 function NoteFooter({
-  id, createdAt, archived, onDelete, onArchive,
+  id, createdAt, archived, fetchNotes,
 }) {
   const date = new Date(createdAt).toLocaleDateString();
 
@@ -14,19 +14,18 @@ function NoteFooter({
         {date}
       </time>
       <div className="note__actions">
-        <NoteDeleteButton id={id} onDelete={onDelete} />
-        <NoteArchiveButton id={id} archived={archived} onArchive={onArchive} />
+        <NoteDeleteButton id={id} fetchNotes={fetchNotes} />
+        <NoteArchiveButton id={id} archived={archived} fetchNotes={fetchNotes} />
       </div>
     </footer>
   );
 }
 
 NoteFooter.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.func.isRequired,
 };
 
 export default NoteFooter;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { addNote } from '../../utils/network';
 
-function NewNote({ onSave }) {
+function NewNote({ fetchNotes }) {
   const LIMIT = 50;
 
   const initialStates = {
@@ -45,7 +46,7 @@ function NewNote({ onSave }) {
     setShow(true);
   };
 
-  const onSubmit = (ev) => {
+  const onSubmit = async (ev) => {
     ev.preventDefault();
 
     const newErrors = [];
@@ -59,9 +60,11 @@ function NewNote({ onSave }) {
       return;
     }
 
-    onSave({ title, body });
+    await addNote({ title, body });
 
     resetToInitialState();
+
+    fetchNotes();
   };
 
   return (
@@ -99,7 +102,7 @@ function NewNote({ onSave }) {
 }
 
 NewNote.propTypes = {
-  onSave: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.func.isRequired,
 };
 
 export default NewNote;
