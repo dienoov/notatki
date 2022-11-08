@@ -1,9 +1,9 @@
 .note {
-    @apply p-4 bg-neutral-800 rounded-3xl mb-4 break-inside-avoid;
+    @apply p-4 dark:bg-neutral-800 bg-neutral-200 rounded-3xl mb-4 break-inside-avoid;
 }
 
 .note.detail {
-    @apply px-4 md:py-4 py-0 bg-neutral-900 mx-auto my-4 max-w-4xl;
+    @apply px-4 md:py-4 py-0 bg-transparent mx-auto my-4 max-w-4xl;
 }
 
 .note__header, .note__body {
@@ -23,7 +23,7 @@
 }
 
 .note__content {
-    @apply text-neutral-300 overflow-x-hidden overflow-ellipsis;
+    @apply dark:text-neutral-300 text-neutral-700 overflow-x-hidden overflow-ellipsis;
 }
 
 .detail .note__content {
@@ -47,7 +47,7 @@
 }
 
 .note__archive svg {
-    @apply fill-neutral-100;
+    @apply dark:fill-neutral-100 fill-neutral-900;
 }
 
 .note__archive:hover {
@@ -59,9 +59,13 @@
 }
 
 .note__delete svg {
-    @apply fill-transparent stroke-neutral-100;
+    @apply fill-transparent dark:stroke-neutral-100 stroke-neutral-900;
 }
 
 .note__delete:hover {
     @apply bg-red-700;
+}
+
+.note__delete:hover svg {
+    @apply stroke-neutral-100;
 }

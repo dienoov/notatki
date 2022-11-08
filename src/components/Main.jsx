@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from '../pages/routes';
 import Home from '../pages/Home';
@@ -8,10 +8,13 @@ import Archive from '../pages/Archive';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import PrivateRoute from '../pages/PrivateRoute';
+import ThemeContext from '../contexts/ThemeContext';
 
 function Main() {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <main className="main">
+    <main className={`main ${theme ? 'light' : 'dark'}`}>
       <Routes>
         <Route
           path={ROUTES.PRIMARY}

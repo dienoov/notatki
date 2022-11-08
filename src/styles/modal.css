@@ -1,6 +1,7 @@
 .modal {
-    @apply fixed top-0 left-0 bg-neutral-900 bg-opacity-50 backdrop-blur-sm w-full h-screen flex justify-center items-center
-    translate-y-[-100%] transition duration-300 ease-in-out;
+    @apply fixed top-0 left-0 dark:bg-neutral-900 bg-neutral-100 bg-opacity-50 backdrop-blur-sm
+        w-full h-screen flex justify-center items-center
+        translate-y-[-100%] transition duration-300 ease-in-out;
 }
 
 .modal.show {
@@ -8,7 +9,7 @@
 }
 
 .modal__form {
-    @apply p-4 bg-neutral-800 max-w-xl w-full rounded-3xl mx-4;
+    @apply p-4 dark:bg-neutral-800 bg-neutral-200 max-w-xl w-full rounded-3xl mx-4;
 }
 
 .modal__input {
@@ -32,7 +33,7 @@
 }
 
 .modal__input #input-body {
-    @apply h-64 text-neutral-300;
+    @apply h-64 dark:text-neutral-300 text-neutral-700;
 }
 
 .modal__input #input-body[data-placeholder]:empty:before {
@@ -61,11 +62,11 @@
 }
 
 .modal__submit:hover {
-    @apply bg-neutral-200;
+    @apply dark:bg-neutral-200 bg-neutral-800 dark:text-neutral-800 text-neutral-200;
 }
 
 .modal__cancel:hover {
-    @apply text-neutral-300;
+    @apply dark:text-neutral-300 text-neutral-700;
 }
 
 .fab {
@@ -73,17 +74,17 @@
 }
 
 .fab__modal {
-    @apply rounded-lg bg-neutral-100 p-2 flex items-center transition;
+    @apply rounded-lg dark:bg-neutral-100 bg-neutral-900 p-2 flex items-center transition;
 }
 
 .fab__modal svg {
-    @apply w-8 h-8 stroke-neutral-800;
+    @apply w-8 h-8 dark:stroke-neutral-800 stroke-neutral-200;
 }
 
 .fab__modal span {
-    @apply text-neutral-800 px-2 font-semibold hidden md:block;
+    @apply dark:text-neutral-800 text-neutral-200 px-2 font-semibold hidden md:block;
 }
 
 .fab__modal:hover {
-    @apply bg-neutral-200;
+    @apply dark:bg-neutral-200 bg-neutral-800;
 }

@@ -7,7 +7,7 @@
 }
 
 .primary__title, .archive__title {
-    @apply font-semibold text-3xl;
+    @apply dark:text-neutral-100 text-neutral-900 font-semibold text-3xl;
 }
 
 .primary__container, .archive__container {
