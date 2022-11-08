@@ -33,7 +33,7 @@ function PrimaryNote({
             />
           ))}
         {notes.length === 0
-        && <p className="primary__empty">Nothing in Primary</p>}
+        && <p className="primary__empty">{locale ? 'Tidak ada catatan' : 'Nothing in primary'}</p>}
       </div>
     </article>
   );

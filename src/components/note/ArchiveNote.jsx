@@ -33,7 +33,7 @@ function ArchiveNote({
             />
           ))}
         {notes.length === 0
-          && <p className="archive__empty">Nothing in Archive</p>}
+          && <p className="archive__empty">{locale ? 'Tidak ada catatan terarsip' : 'Nothing in archived'}</p>}
       </div>
     </article>
   );
