@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ArchiveNote from '../components/note/ArchiveNote';
 import { getArchivedNotes } from '../utils/network';
 import ROUTES from './routes';
+import AuthContext from '../contexts/AuthContext';
 
 function Archive() {
   const [notes, setNotes] = useState([]);
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { unauthenticate } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const fetchNotes = async () => {
     setIsLoading(true);
 
     const { error, data } = await getArchivedNotes();
-    if (error) navigate(ROUTES.SIGN_IN);
-    else setNotes(data);
+
+    if (error) {
+      unauthenticate();
+      navigate(ROUTES.SIGN_IN);
+    } else setNotes(data);
 
     setTimeout(() => {
       setIsLoading(false);

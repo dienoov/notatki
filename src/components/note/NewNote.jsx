@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { addNote } from '../../utils/network';
 import LocaleContext from '../../contexts/LocaleContext';
+import AuthContext from '../../contexts/AuthContext';
+import ROUTES from '../../pages/routes';
 
 function NewNote({ fetchNotes }) {
   const LIMIT = 50;
@@ -19,7 +22,9 @@ function NewNote({ fetchNotes }) {
   const [titleLimit, setTitleLimit] = useState(initialStates.titleLimit);
   const [show, setShow] = useState(initialStates.show);
   const [errors, setErrors] = useState(initialStates.errors);
+  const { unauthenticate } = useContext(AuthContext);
   const { locale } = useContext(LocaleContext);
+  const navigate = useNavigate();
 
   const resetToInitialState = () => {
     setTitle(initialStates.title);
@@ -62,7 +67,12 @@ function NewNote({ fetchNotes }) {
       return;
     }
 
-    await addNote({ title, body });
+    const { error } = await addNote({ title, body });
+
+    if (error) {
+      unauthenticate();
+      navigate(ROUTES.SIGN_IN);
+    }
 
     resetToInitialState();
 

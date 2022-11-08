@@ -4,14 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { archiveNote, unarchiveNote } from '../../utils/network';
 import ROUTES from '../../pages/routes';
 import LocaleContext from '../../contexts/LocaleContext';
+import AuthContext from '../../contexts/AuthContext';
 
 function NoteArchiveButton({ id, archived, fetchNotes }) {
-  const navigate = useNavigate();
+  const { unauthenticate } = useContext(AuthContext);
   const { locale } = useContext(LocaleContext);
+  const navigate = useNavigate();
 
   const onArchive = async () => {
-    if (archived) await unarchiveNote(id);
-    else await archiveNote(id);
+    const { error } = await (archived ? unarchiveNote(id) : archiveNote(id));
+
+    if (error) {
+      unauthenticate();
+      navigate(ROUTES.SIGN_IN);
+    }
 
     if (fetchNotes)fetchNotes();
     else navigate(archived ? ROUTES.PRIMARY : ROUTES.ARCHIVE);
