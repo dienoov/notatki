@@ -25,7 +25,11 @@ NoteFooter.propTypes = {
   id: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  fetchNotes: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+};
+
+NoteFooter.defaultProps = {
+  fetchNotes: false,
 };
 
 export default NoteFooter;

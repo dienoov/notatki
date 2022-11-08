@@ -1,50 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Note from '../components/note/Note';
+import ROUTES from './routes';
+import { getNote } from '../utils/network';
+import LoadingAnimation from '../components/LoadingAnimation';
 
-function Detail({ notes, onDelete, onArchive }) {
+function Detail() {
+  const [note, setNote] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
-  const note = notes.find(({ id: noteId }) => noteId === +id);
-
   const navigate = useNavigate();
 
-  if (!note) return <Navigate to="/404" />;
+  useEffect(() => {
+    const fetchNote = async () => {
+      setIsLoading(true);
 
-  const onDeleteRedirect = (deleteId) => {
-    onDelete(deleteId);
-    navigate('/');
-  };
+      const { error, data } = await getNote(id);
 
-  const onArchiveRedirect = (archiveId) => {
-    onArchive(archiveId);
-    navigate('/');
-  };
+      if (error) navigate(ROUTES.NOT_FOUND);
+      else setNote(data);
 
-  return (
+      setIsLoading(false);
+    };
+
+    fetchNote();
+  }, []);
+
+  return isLoading ? <LoadingAnimation /> : (
     <Note
       archived={note.archived}
       createdAt={note.createdAt}
       id={note.id}
       title={note.title}
       body={note.body}
-      onDelete={onDeleteRedirect}
-      onArchive={onArchiveRedirect}
       detail
     />
   );
 }
-
-Detail.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    archived: PropTypes.bool.isRequired,
-  })).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
-};
 
 export default Detail;

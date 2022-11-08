@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { deleteNote } from '../../utils/network';
+import ROUTES from '../../pages/routes';
 
 function NoteDeleteButton({ id, fetchNotes }) {
+  const navigate = useNavigate();
+
   const onDelete = async () => {
     await deleteNote(id);
-    fetchNotes();
+
+    if (fetchNotes) fetchNotes();
+    else navigate(ROUTES.PRIMARY);
   };
 
   return (
@@ -19,7 +25,11 @@ function NoteDeleteButton({ id, fetchNotes }) {
 
 NoteDeleteButton.propTypes = {
   id: PropTypes.string.isRequired,
-  fetchNotes: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+};
+
+NoteDeleteButton.defaultProps = {
+  fetchNotes: false,
 };
 
 export default NoteDeleteButton;

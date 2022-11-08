@@ -27,12 +27,13 @@ Note.propTypes = {
   body: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  fetchNotes: PropTypes.func.isRequired,
   detail: PropTypes.bool,
+  fetchNotes: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
 Note.defaultProps = {
   detail: false,
+  fetchNotes: false,
 };
 
 export default Note;

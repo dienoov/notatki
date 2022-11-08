@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from '../pages/routes';
 import Home from '../pages/Home';
@@ -10,9 +9,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import PrivateRoute from '../pages/PrivateRoute';
 
-function Main({
-  notes, onDelete, onArchive, onSave,
-}) {
+function Main() {
   return (
     <main className="main">
       <Routes>
@@ -20,7 +17,7 @@ function Main({
           path={ROUTES.PRIMARY}
           element={(
             <PrivateRoute>
-              <Home notes={notes} onDelete={onDelete} onArchive={onArchive} onSave={onSave} />
+              <Home />
             </PrivateRoute>
           )}
         />
@@ -28,7 +25,7 @@ function Main({
           path={ROUTES.ARCHIVE}
           element={(
             <PrivateRoute>
-              <Archive notes={notes} onDelete={onDelete} onArchive={onArchive} />
+              <Archive />
             </PrivateRoute>
           )}
         />
@@ -36,7 +33,7 @@ function Main({
           path={ROUTES.DETAIL}
           element={(
             <PrivateRoute>
-              <Detail onDelete={onDelete} notes={notes} onArchive={onArchive} />
+              <Detail />
             </PrivateRoute>
           )}
         />
@@ -56,18 +53,5 @@ function Main({
     </main>
   );
 }
-
-Main.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    archived: PropTypes.bool.isRequired,
-  })).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onArchive: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-};
 
 export default Main;

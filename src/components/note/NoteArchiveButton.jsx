@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { archiveNote, unarchiveNote } from '../../utils/network';
+import ROUTES from '../../pages/routes';
 
 function NoteArchiveButton({ id, archived, fetchNotes }) {
+  const navigate = useNavigate();
+
   const onArchive = async () => {
     if (archived) await unarchiveNote(id);
     else await archiveNote(id);
 
-    fetchNotes();
+    if (fetchNotes)fetchNotes();
+    else navigate(archived ? ROUTES.PRIMARY : ROUTES.ARCHIVE);
   };
 
   const svg = archived
@@ -39,7 +44,11 @@ function NoteArchiveButton({ id, archived, fetchNotes }) {
 NoteArchiveButton.propTypes = {
   id: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  fetchNotes: PropTypes.func.isRequired,
+  fetchNotes: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+};
+
+NoteArchiveButton.defaultProps = {
+  fetchNotes: false,
 };
 
 export default NoteArchiveButton;
