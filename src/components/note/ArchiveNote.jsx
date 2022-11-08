@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Note from './Note';
 import LoadingAnimation from '../LoadingAnimation';
 import Search from '../Search';
+import LocaleContext from '../../contexts/LocaleContext';
 
 function ArchiveNote({
   notes, isLoading, fetchNotes, onSearch,
 }) {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <article className="archive">
       <header className="archive__header">
-        <h2 className="archive__title">Archived Notes</h2>
+        <h2 className="archive__title">{locale ? 'Catatan terarsip' : 'Archived Notes'}</h2>
       </header>
       <Search onSearch={onSearch} />
       <div className="archive__container">

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { archiveNote, unarchiveNote } from '../../utils/network';
 import ROUTES from '../../pages/routes';
+import LocaleContext from '../../contexts/LocaleContext';
 
 function NoteArchiveButton({ id, archived, fetchNotes }) {
   const navigate = useNavigate();
+  const { locale } = useContext(LocaleContext);
 
   const onArchive = async () => {
     if (archived) await unarchiveNote(id);
@@ -29,11 +31,18 @@ function NoteArchiveButton({ id, archived, fetchNotes }) {
       </svg>
     );
 
+  let title;
+  if (archived) {
+    if (locale) title = 'Pindah ke utama';
+    else title = 'Move to Primary';
+  } else if (locale) title = 'Pindah ke arsip';
+  else title = 'Move to Archive';
+
   return (
     <button
       type="button"
       className="note__archive"
-      title={archived ? 'Move to Primary' : 'Move to Archive'}
+      title={title}
       onClick={onArchive}
     >
       {svg}

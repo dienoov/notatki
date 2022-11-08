@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import LocaleContext from '../contexts/LocaleContext';
 
 function Search({ onSearch }) {
   const [search, setSearch] = useState('');
+  const { locale } = useContext(LocaleContext);
 
   const onInput = (ev) => {
     setSearch(ev.target.value);
@@ -17,7 +19,7 @@ function Search({ onSearch }) {
       <input
         type="search"
         className="search__input"
-        placeholder="Search notes..."
+        placeholder={locale ? 'Cari catatan...' : 'Search notes...'}
         value={search}
         onInput={onInput}
       />
