@@ -57,7 +57,7 @@ function NewNote({ fetchNotes }) {
     if (title.length > 50) newErrors.push(locale ? 'Judul tidak boleh lebih dari 50 karakter' : 'Title must be less than 50 characters');
     if (body.length === 0) newErrors.push(locale ? 'Catatan tidak boleh kosong' : 'Body must not be empty');
 
-    if (errors.length !== 0) {
+    if (newErrors.length !== 0) {
       setErrors(newErrors);
       return;
     }
